@@ -11,46 +11,50 @@ const massEl = document.getElementById("mass");
 const convertBtn = document.getElementById("convert");
 
 
-convertBtn.addEventListener("click", function(){
+function render(){
     const value = inputEl.value;
     convertValues(value, lengthEl);
     convertValues(value, volumeEl);
     convertValues(value, massEl);
+}
+
+convertBtn.addEventListener("click", function(){
+    render();
 })
 
 function convertValues(input, unitEl){
-    let unit;
-    let unitAlt = "";
-    let conversionValue;
-    if(unitEl === lengthEl) {
-        unit = "meters";
-        unitAlt = "feet";
-        conversionValue = 3.281;
+    if(isNaN(input)){
+        let message = `Invalid Entry! Please input a number value`;
+        unitEl.textContent = message;
+        return;
     }
-    if(unitEl === volumeEl){ 
-        unit = "liters";
-        unitAlt = "gallons";
-        conversionValue = 0.264;
+    else{
+        let unit;
+        let unitAlt = "";
+        let conversionValue;
+        if(unitEl === lengthEl) {
+            unit = "meters";
+            unitAlt = "feet";
+            conversionValue = 3.281;
+        }
+        if(unitEl === volumeEl){ 
+            unit = "liters";
+            unitAlt = "gallons";
+            conversionValue = 0.264;
+        }
+        if(unitEl === massEl) {
+            unit = "kilos";
+            unitAlt = "pounds";
+            conversionValue = 2.204;
+        }
+        
+        const conversion1 = (Number(input) * conversionValue).toFixed(3);
+        const conversion2 = (Number(input) / conversionValue).toFixed(3);
+        
+        let message = `${input} ${unit} = ${conversion1} ${unitAlt} | ${input} ${unitAlt} = ${conversion2} ${unit}`;
+        
+        unitEl.textContent = message;
     }
-    if(unitEl === massEl) {
-        unit = "kilos";
-        unitAlt = "pounds";
-        conversionValue = 2.204;
-    }
-    
-    const conversion1 = (Number(input) * conversionValue).toFixed(3);
-    const conversion2 = (Number(input) / conversionValue).toFixed(3);
-    
-    let message = `${input} ${unit} = ${conversion1} ${unitAlt} | ${input} ${unitAlt} = ${conversion2} ${unit}`;
-    
-    unitEl.textContent = message;
-    
-    // let lengthMessage = 
-    // `${input.value} meters = ${(input.value * 3.281).toFixed(3)} feet | ${input.value} feet = ${(input.value / 3.281).toFixed(3)} meters`;
-    // let volumeMessage = 
-    // `${input.value} liters = ${(input.value * 0.264).toFixed(3)} gallons | ${input.value} gallons = ${(input.value / 0.264).toFixed(3)} liters`;
-    // let massMessage = 
-    // `${input.value} kilos = ${(input.value * 2.204).toFixed(3)} pounds | ${input.value} pounds = ${(input.value / 2.204).toFixed(3)} kilos`;
 }
 
 
