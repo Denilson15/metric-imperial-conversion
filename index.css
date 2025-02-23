@@ -31,9 +31,9 @@ body {
     line-height: 24px;
 }
 
-::placeholder{
+/* ::placeholder{
     color: #FFFFFF;
-}
+} */
 
 #convert{
     background-color: #FFFFFF;
